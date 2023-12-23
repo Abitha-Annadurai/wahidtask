@@ -37,14 +37,19 @@ class MyHomePage extends ConsumerWidget {
           children: [
             Expanded(
               child: ListView.builder(
+                itemCount: userList.length,
                   itemBuilder: (context, index){
                     return Card(
-                      child: ListTile(
-                        leading: CircleAvatar(
-                          backgroundImage: NetworkImage(userList[index].avatar.toString()),
-                        ),
-                        title: Text(userList[index].name.toString()),
-                        subtitle: Text(userList[index].description.toString()),
+                      child: Column(
+                        children: [
+                          Text(userList[index].name),
+                          Text(userList[index].description),
+                         CircleAvatar(
+                           backgroundImage: NetworkImage(userList[index].avatar),
+                         ),
+                          Text(userList[index].stars.toString()),
+                          Text(userList[index].username)
+                        ],
                       ),
                     );
                   }),

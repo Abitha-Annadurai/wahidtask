@@ -9,10 +9,10 @@ class UserModel {
     required this.avatar});
   
   factory UserModel.fromJSON(Map<String, dynamic> josn){
-    return UserModel(name: josn['name'],
-        description: josn['description'],
-        stars: josn['starred_url'],
-        username: josn['full_name'],
-        avatar: josn['avatar_url']);
+    return UserModel(name: josn['name'] ?? '',
+        description: josn['description'] ?? '',
+        stars: josn['owner']['starred_url'] ?? '',
+        username: josn['full_name']?? '',
+        avatar: josn['owner']['avatar_url']?? '');
   }
 }

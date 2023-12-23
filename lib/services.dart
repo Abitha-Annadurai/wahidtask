@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:convert';
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -10,8 +11,9 @@ class ApiServices {
   Future<List<UserModel>> getUsers() async {
     Response response = await get(Uri.parse(endpoint));
     if(response.statusCode == 200){
-      final result = json.decode(response.body)['items'];
-      print(result);
+      final List result = json.decode(response.body)['items'];
+     // var saldo = result["items"];
+      //print(saldo);
       return result.map((e) => UserModel.fromJSON(e)).toList();
       //return result;
     } else {

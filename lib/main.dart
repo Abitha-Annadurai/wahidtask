@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:wahidtask/date_provider.dart';
 import 'package:wahidtask/user_model.dart';
@@ -37,15 +38,31 @@ class MyHomePage extends ConsumerWidget {
           children: [
             Expanded(
               child: ListView.builder(
+                itemCount: userList.length,
                   itemBuilder: (context, index){
                     return Card(
-                      child: ListTile(
-                        leading: CircleAvatar(
-                          backgroundImage: NetworkImage(userList[index].avatar.toString()),
-                        ),
-                        title: Text(userList[index].name.toString()),
-                        subtitle: Text(userList[index].description.toString()),
-                      ),
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            CircleAvatar(
+                              backgroundImage: NetworkImage(userList[index].avatar),
+                            ),
+                            RatingBarIndicator(
+                              unratedColor: Colors.black12,
+                              //rating: 3.56,
+                              rating: userList[index].stars,
+                              itemBuilder: (context, index) => Icon(Icons.star, color: Colors.amber),
+                              itemCount: 5,
+                              itemSize: 20,
+                              direction: Axis.horizontal,
+                            ),
+                            Text(userList[index].name),
+                            Text(userList[index].username),
+                            Text(userList[index].description),
+                          ],),
+                      )
                     );
                   }),
             )

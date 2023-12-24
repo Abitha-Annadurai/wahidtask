@@ -15,6 +15,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Flutter Demo',
+      debugShowCheckedModeBanner: false,
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
@@ -31,7 +32,9 @@ class MyHomePage extends ConsumerWidget {
   Widget build(BuildContext context, ref) {
     final _data = ref.watch(userDataProvider);
     return Scaffold(
-      appBar: AppBar(),
+      appBar: AppBar(
+        title: Text('Github Repos'),
+      ),
       body: _data.when(data: (_data){
         List<UserModel> userList = _data.map((e) => e).toList();
         return Column(
@@ -42,13 +45,19 @@ class MyHomePage extends ConsumerWidget {
                   itemBuilder: (context, index){
                     return Card(
                       child: Padding(
-                        padding: const EdgeInsets.all(8.0),
+                        padding: const EdgeInsets.all(10),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            CircleAvatar(
-                              backgroundImage: NetworkImage(userList[index].avatar),
+                            ListTile(
+                              leading:  CircleAvatar(
+                                radius: 30,
+                                backgroundImage: NetworkImage(userList[index].avatar),
+                              ),
+                              title: Text(userList[index].name, style: TextStyle(fontWeight: FontWeight.bold),),
+                              subtitle: Text(userList[index].username, style: TextStyle(fontWeight: FontWeight.bold)),
                             ),
+
                             RatingBarIndicator(
                               unratedColor: Colors.black12,
                               //rating: 3.56,
@@ -58,8 +67,7 @@ class MyHomePage extends ConsumerWidget {
                               itemSize: 20,
                               direction: Axis.horizontal,
                             ),
-                            Text(userList[index].name),
-                            Text(userList[index].username),
+                            SizedBox(height: 9,),
                             Text(userList[index].description),
                           ],),
                       )

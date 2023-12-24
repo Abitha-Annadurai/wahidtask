@@ -12,7 +12,7 @@ class UserModel {
     return UserModel(name: josn['name'] ?? '',
         description: josn['description'] ?? '',
         //stars: (josn['owner']['starred_url'] !=null) ? josn['owner']['starred_url'].toDouble() : null,
-        stars: double.tryParse(josn['owner']['starred_url'].toString()) ?? 0.0,
+        stars: double.tryParse(josn['score'].toString()) ?? 0.0,
         username: josn['full_name']?? '',
         avatar: josn['owner']['avatar_url']?? '');
   }
